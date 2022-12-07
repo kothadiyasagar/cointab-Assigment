@@ -43,7 +43,7 @@ app.post("/login", function (request, response) {
             let cuurent = new Date();
           let dd =new Date(Date.now() + 24 * (60 * 60 * 1000))
           
-        
+        //  current date  less then user block date time
             if (
               cuurent?.getDate() < results[0].lock_timeout?.getDate() &&
               results[0].bad_password_count >= 5 &&
@@ -52,9 +52,9 @@ app.post("/login", function (request, response) {
               response.send("your account has been  block foe next 24 hours");
             } 
             
-
+ //  user loing 6th  time and user account not block
              if (
-              results[0].bad_password_count === 5 &&
+              results[0].bad_password_count >= 5 &&
               results[0].is_locked == 0
             ) {
               let cuurent = new Date();
@@ -74,6 +74,9 @@ app.post("/login", function (request, response) {
                 response.send("your account has been  block foe next 24 hours");
               });
             } 
+        
+
+            // user fille right  data  and check account block condition
             else if (
               results[0].bad_password_count >= 5 &&
               results[0].is_locked == 1
